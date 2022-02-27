@@ -1,4 +1,4 @@
-2022-02-27T15:18:12+08:00
+2022-02-27T17:13:38+08:00
 Running ./targets/Debug/main
 Run on (2 X 2400 MHz CPU s)
 CPU Caches:
@@ -6,25 +6,31 @@ CPU Caches:
   L1 Instruction 32 KiB (x2)
   L2 Unified 4096 KiB (x2)
   L3 Unified 16384 KiB (x2)
-Load Average: 0.30, 0.35, 0.20
+Load Average: 0.06, 0.18, 0.20
 ---------------------------------------------------------------------
 Benchmark                           Time             CPU   Iterations
 ---------------------------------------------------------------------
-BM_task1/8                       4372 ns         4344 ns       165766
-BM_task1/64                     32527 ns        32503 ns        22446
-BM_task1/512                   249694 ns       249348 ns         2811
-BM_task1/4096                 1987698 ns      1983862 ns          355
-BM_task1/32768               15953164 ns     15949763 ns           43
-BM_task1/262144             128347369 ns    128159870 ns            5
-BM_task2_hori/8                643857 ns       365952 ns         1906
-BM_task2_hori/64               820271 ns       439481 ns         1673
-BM_task2_hori/512             1498645 ns       615512 ns         1225
-BM_task2_hori/4096            7215072 ns      2407829 ns          286
-BM_task2_hori/32768          43910045 ns     12805943 ns           50
-BM_task2_hori/262144        349391425 ns     98763209 ns            7
-BM_task2_bin_search/8           76701 ns        76631 ns        11682
-BM_task2_bin_search/64         393457 ns       393308 ns         1967
-BM_task2_bin_search/512       2675742 ns      2673467 ns          284
-BM_task2_bin_search/4096     19645579 ns     19620004 ns           37
-BM_task2_bin_search/32768   158230527 ns    158154504 ns            4
-BM_task2_bin_search/262144 1321590046 ns   1321008373 ns            1
+BM_task1/8                       4496 ns         4490 ns       163339
+BM_task1/64                     34105 ns        34071 ns        21464
+BM_task1/512                   256004 ns       255725 ns         2788
+BM_task1/4096                 2001107 ns      1999276 ns          353
+BM_task1/32768               15802570 ns     15791592 ns           42
+BM_task1/262144             129859425 ns    129772029 ns            5
+BM_task2_hori/8                761541 ns       452341 ns         1494
+BM_task2_hori/64               967130 ns       533840 ns         1000
+BM_task2_hori/512             1537871 ns       673495 ns         1067
+BM_task2_hori/4096            6563274 ns      2131394 ns          320
+BM_task2_hori/32768          45907066 ns     13091499 ns           55
+BM_task2_hori/262144        354462364 ns     99471159 ns            7
+BM_task2_bin_search/8           60012 ns        59879 ns        19824
+BM_task2_bin_search/64         399960 ns       399226 ns         1767
+BM_task2_bin_search/512       2823928 ns      2732908 ns          292
+BM_task2_bin_search/4096     19047636 ns     19034094 ns           36
+BM_task2_bin_search/32768   157718566 ns    157546036 ns            4
+BM_task2_bin_search/262144 1342901696 ns   1341916195 ns            1
+BM_task3_by_hori/8             839663 ns       509328 ns         1000
+BM_task3_by_hori/64            926583 ns       525944 ns         1061
+BM_task3_by_hori/512          1984542 ns      1205770 ns          530
+BM_task3_by_hori/4096        11803164 ns      7421662 ns           88
+BM_task3_by_hori/32768      102262455 ns     67319573 ns           11
+BM_task3_by_hori/262144     890956458 ns    622926435 ns            1

@@ -17,6 +17,8 @@
 #include <vector>
 #include <thread>
 
+typedef std::vector<std::list<Row>> ParallelRowsResult;
+
 Rows rows;
 
 void print_one(const Row& row) {
@@ -152,7 +154,7 @@ void task2_vert(Row* rows, int32_t len) {
     };  // auto vertical_parallel = [](const Row* rows, int32_t len)
 }   // void task2_vert(Row* row, int32_t len)
 
-void task2_hori(Row* rows, int32_t len) {
+ParallelRowsResult hori_search(Row* rows, int32_t len) {
     auto hori_pred = [](const Row& row) {
         return (row.a == 1000 || row.a == 2000 || row.a == 3000) && row.b >= 10 && row.b < 50;
     };  // auto hori_pred = [](const Row& row)
@@ -170,13 +172,68 @@ void task2_hori(Row* rows, int32_t len) {
     std::future<std::list<Row>> part1(std::async(hori_task, rows, len / 2));
     std::future<std::list<Row>> part2(std::async(hori_task, rows + len / 2, len - len / 2));
 
-    for(const Row& r: part1.get()) {
-        print_one(r);
-    }
-    for(const Row& r: part2.get()) {
-        print_one(r);
+    ParallelRowsResult res;
+    res.push_back(part1.get());
+    res.push_back(part2.get());
+
+    return res;
+}   // void hori_search(Row* rows, int32_t)
+
+void task2_hori(Row* rows, int32_t len) {
+    ParallelRowsResult gathered = hori_search(rows, len);
+
+    for (auto& batch : gathered) {
+        for(const Row& r: batch) {
+            print_one(r);
+        }
     }
 }   // void task2_hori(Row* row, int32_t len)
+
+void task2_create_index(Rows& rows) {
+    std::unique_ptr<Indexes> index_a(new Indexes());
+    std::unique_ptr<Indexes> index_b(new Indexes());
+
+    for (int i = 0; i < rows.len; ++i) {
+        index_a->insert({ rows.data[i].a, i });
+        index_b->insert({ rows.data[i].b, i });
+    }   // for (int i = 0; i < rows.len; ++i)
+
+    rows.index_a = std::move(index_a);
+    rows.index_b = std::move(index_b);
+}   // void task2_create_index(Rows& rows)
+
+void task2_indexed(const Rows& rows) {
+}   // void task2_indexed(Rows* rows, int32_t len)
+
+void task3_by_hori(Row* rows, int32_t len) {
+    ParallelRowsResult res = hori_search(rows, len);
+
+    int32_t res_total_size = 0;
+    for (auto& batch : res) {
+        res_total_size += batch.size();
+    }
+    std::vector<Row> merged_res(res_total_size);
+
+    int32_t i = 0;
+    for (auto& batch : res) {
+        for (auto& row : batch) {
+            merged_res[i] = row;
+            ++i;
+        }
+    }
+
+    std::sort(merged_res.begin(),
+            merged_res.end(),
+            [] (const Row& a, const Row& b) {
+                return a.b < b.b;
+            }
+            );
+
+    std::vector<Row>& sorted_res = merged_res;
+    for (const Row& row : sorted_res) {
+        print_one(row);
+    }
+}   // void task3_by_hori(Row* rows, int32_t len)
 
 static void BM_SetUp(const ::benchmark::State& state) {
     rows = GenerateData(state.range(0));
@@ -208,15 +265,14 @@ static void BM_task2_bin_search(::benchmark::State& state) {
     }
 }   // static void BM_task2_bin_search(::benchmark::State& state)
 
-static void BM_gen_data(::benchmark::State& state) {
+static void BM_task3_by_hori(::benchmark::State& state) {
     for (auto _ : state) {
-        Rows rows = GenerateData(state.range(0));
-        delete[] rows.data;
+        task3_by_hori(rows.data, rows.len);
     }
-}   // static void BM_gen_data(::benchmark::State& state)
+}   // static void BM_task3_by_hori(::benchmark::State& state)
 
-BENCHMARK(BM_gen_data)->Range(8, 8 << 15)->Complexity();
-BENCHMARK(BM_task1)->Range(8, 8 << 15)->Setup(BM_SetUp)->Teardown(BM_TearDown)->Complexity();
-BENCHMARK(BM_task2_hori)->Range(8, 8 << 15)->Setup(BM_task2_setup)->Teardown(BM_TearDown)->Complexity();
-BENCHMARK(BM_task2_bin_search)->Range(8, 8 << 15)->Setup(BM_task2_setup)->Teardown(BM_TearDown)->Complexity();
+BENCHMARK(BM_task1)->Range(8, 8 << 15)->Setup(BM_SetUp)->Teardown(BM_TearDown);
+BENCHMARK(BM_task2_hori)->Range(8, 8 << 15)->Setup(BM_task2_setup)->Teardown(BM_TearDown);
+BENCHMARK(BM_task2_bin_search)->Range(8, 8 << 15)->Setup(BM_task2_setup)->Teardown(BM_TearDown);
+BENCHMARK(BM_task3_by_hori)->Range(8, 8 << 15)->Setup(BM_task2_setup)->Teardown(BM_TearDown);
 BENCHMARK_MAIN();
