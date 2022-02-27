@@ -1,4 +1,4 @@
-2022-02-25T19:02:55+08:00
+2022-02-27T15:22:20+08:00
 Running ./targets/Release/main
 Run on (2 X 2400 MHz CPU s)
 CPU Caches:
@@ -6,39 +6,25 @@ CPU Caches:
   L1 Instruction 32 KiB (x2)
   L2 Unified 4096 KiB (x2)
   L3 Unified 16384 KiB (x2)
-Load Average: 0.10, 0.28, 0.18
+Load Average: 0.38, 0.46, 0.29
 ---------------------------------------------------------------------
 Benchmark                           Time             CPU   Iterations
 ---------------------------------------------------------------------
-BM_gen_data/8                    7067 ns         7061 ns        71652
-BM_gen_data/64                  39132 ns        39108 ns        17924
-BM_gen_data/512                299150 ns       298789 ns         2384
-BM_gen_data/4096              2394300 ns      2386826 ns          302
-BM_gen_data/32768            18905131 ns     18887546 ns           36
-BM_gen_data/262144          155328591 ns    155224153 ns            5
-BM_gen_data_BigO           29495561.87 (1)  29473913.56 (1)  
-BM_gen_data_RMS                   192 %           192 %    
 BM_task1/8                      0.000 ns        0.000 ns   1000000000
 BM_task1/64                     0.000 ns        0.000 ns   1000000000
 BM_task1/512                    0.000 ns        0.000 ns   1000000000
 BM_task1/4096                   0.000 ns        0.000 ns   1000000000
 BM_task1/32768                  0.000 ns        0.000 ns   1000000000
 BM_task1/262144                 0.000 ns        0.000 ns   1000000000
-BM_task1_BigO                    0.00 (1)        0.00 (1)  
-BM_task1_RMS                       51 %            41 %    
-BM_task2_hori/8                245363 ns       124468 ns         5471
-BM_task2_hori/64               277510 ns       136082 ns         5177
-BM_task2_hori/512              513412 ns       207731 ns         3543
-BM_task2_hori/4096            2020284 ns       758593 ns          903
-BM_task2_hori/32768          13623367 ns      4662690 ns          144
-BM_task2_hori/262144        108853892 ns     37212581 ns           19
-BM_task2_hori_BigO         20922304.46 (1)  7183690.67 (1)  
-BM_task2_hori_RMS                 189 %           188 %    
-BM_task2_bin_search/8            5865 ns         5860 ns       202527
-BM_task2_bin_search/64         100186 ns       100120 ns         7537
-BM_task2_bin_search/512        678200 ns       664492 ns         1074
-BM_task2_bin_search/4096      5298342 ns      5296956 ns          128
-BM_task2_bin_search/32768    43586672 ns     43547808 ns           12
-BM_task2_bin_search/262144  395001745 ns    394718468 ns            2
-BM_task2_bin_search_BigO   74111834.97 (1)  74055617.52 (1)  
-BM_task2_bin_search_RMS           195 %           195 %    
+BM_task2_hori/8                229700 ns       126539 ns         5449
+BM_task2_hori/64               258619 ns       131720 ns         5193
+BM_task2_hori/512              369167 ns       167370 ns         4111
+BM_task2_hori/4096            1158805 ns       468004 ns         1519
+BM_task2_hori/32768           6522035 ns      2466417 ns          305
+BM_task2_hori/262144         46604895 ns     17685306 ns           41
+BM_task2_bin_search/8            7157 ns         7148 ns       177337
+BM_task2_bin_search/64          55279 ns        55190 ns        18217
+BM_task2_bin_search/512        340705 ns       331127 ns         2058
+BM_task2_bin_search/4096      2606560 ns      2603748 ns          261
+BM_task2_bin_search/32768    21831582 ns     21819800 ns           31
+BM_task2_bin_search/262144  201001863 ns    200877889 ns            3
