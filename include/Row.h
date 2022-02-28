@@ -4,8 +4,10 @@
 #include <cstdint>
 #include <memory>
 #include <map>
+#include <unordered_map>
 
-typedef std::multimap<int32_t, int32_t> Indexes ;
+typedef std::multimap<int32_t, int32_t>             Indexes ;
+typedef std::unordered_multimap<int32_t, int32_t>   HashIndexes;
 
 struct Row {
     int32_t a;
@@ -13,10 +15,10 @@ struct Row {
 };  // struct Row
 
 struct Rows {
-    Row*                        data;
-    int32_t                     len;
-    std::unique_ptr<Indexes>    index_a;
-    std::unique_ptr<Indexes>    index_b;
+    Row*                            data;
+    int32_t                         len;
+    std::unique_ptr<HashIndexes>    index_a;
+    std::unique_ptr<Indexes>        index_b;
 };  // struct Rows
 
 #endif  // ROW_H

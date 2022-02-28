@@ -1,36 +1,42 @@
-2022-02-27T17:19:03+08:00
-Running ./targets/Debug/main
+2022-02-28T11:28:45+08:00
+Running ./targets/Release/main
 Run on (2 X 2400 MHz CPU s)
 CPU Caches:
   L1 Data 32 KiB (x2)
   L1 Instruction 32 KiB (x2)
   L2 Unified 4096 KiB (x2)
   L3 Unified 16384 KiB (x2)
-Load Average: 0.27, 0.20, 0.20
+Load Average: 0.59, 0.55, 0.31
 ---------------------------------------------------------------------
 Benchmark                           Time             CPU   Iterations
 ---------------------------------------------------------------------
-BM_task1/8                       3270 ns         3220 ns       221260
-BM_task1/64                     22540 ns        22532 ns        32870
-BM_task1/512                   173255 ns       173058 ns         4068
-BM_task1/4096                 1393368 ns      1388781 ns          513
-BM_task1/32768               11962334 ns     11945565 ns           60
-BM_task1/262144              89418685 ns     89226954 ns            8
-BM_task2_hori/8                695856 ns       416683 ns         1704
-BM_task2_hori/64               777167 ns       423349 ns         1606
-BM_task2_hori/512             1125710 ns       523525 ns         1347
-BM_task2_hori/4096            3886593 ns      1253437 ns          581
-BM_task2_hori/32768          24953054 ns      6763577 ns          104
-BM_task2_hori/262144        204280066 ns     52964150 ns           10
-BM_task2_bin_search/8           64557 ns        64521 ns        13520
-BM_task2_bin_search/64         252750 ns       252594 ns         3025
-BM_task2_bin_search/512       1464632 ns      1464063 ns          514
-BM_task2_bin_search/4096      9935423 ns      9929450 ns           68
-BM_task2_bin_search/32768    80373898 ns     80348198 ns            8
-BM_task2_bin_search/262144  725314898 ns    724685691 ns            1
-BM_task3_by_hori/8             658944 ns       419447 ns         1679
-BM_task3_by_hori/64            796203 ns       480016 ns         1467
-BM_task3_by_hori/512          1513337 ns       921488 ns          830
-BM_task3_by_hori/4096         6325771 ns      3871997 ns          175
-BM_task3_by_hori/32768       53564981 ns     34580608 ns           19
-BM_task3_by_hori/262144     472145505 ns    329168957 ns            2
+BM_task1/8                      0.000 ns        0.000 ns   1000000000
+BM_task1/64                     0.000 ns        0.000 ns   1000000000
+BM_task1/512                    0.000 ns        0.000 ns   1000000000
+BM_task1/4096                   0.000 ns        0.000 ns   1000000000
+BM_task1/32768                  0.000 ns        0.000 ns   1000000000
+BM_task1/262144                 0.000 ns        0.000 ns   1000000000
+BM_task2_hori/8                297332 ns       164803 ns         4388
+BM_task2_hori/64               341632 ns       172774 ns         3623
+BM_task2_hori/512              551656 ns       233341 ns         3093
+BM_task2_hori/4096            2065244 ns       766514 ns          939
+BM_task2_hori/32768          14142793 ns      5029338 ns          151
+BM_task2_hori/262144        103054881 ns     35819761 ns           19
+BM_task2_bin_search/8            8508 ns         8440 ns        69842
+BM_task2_bin_search/64          79410 ns        79227 ns         9309
+BM_task2_bin_search/512        709690 ns       694828 ns         1098
+BM_task2_bin_search/4096      5445138 ns      5432167 ns          120
+BM_task2_bin_search/32768    44348515 ns     44044756 ns           12
+BM_task2_bin_search/262144  513087714 ns    512963625 ns            1
+BM_task2_indexed/8               3252 ns         3251 ns       206626
+BM_task2_indexed/64             28132 ns        28036 ns        53917
+BM_task2_indexed/512           190062 ns       188921 ns         4238
+BM_task2_indexed/4096         1390864 ns      1389862 ns          495
+BM_task2_indexed/32768       11771903 ns     11292161 ns           61
+BM_task2_indexed/262144      93080272 ns     93005118 ns            6
+BM_task3_by_hori/8             307942 ns       153083 ns         4411
+BM_task3_by_hori/64            374798 ns       169645 ns         3785
+BM_task3_by_hori/512           581084 ns       238536 ns         2336
+BM_task3_by_hori/4096         2264246 ns      1018677 ns          663
+BM_task3_by_hori/32768       16988687 ns      7854333 ns           84
+BM_task3_by_hori/262144     128706713 ns     61176696 ns           12

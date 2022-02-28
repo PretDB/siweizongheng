@@ -17,7 +17,8 @@
 #include <vector>
 #include <thread>
 
-typedef std::vector<std::list<Row>> ParallelRowsResult;
+typedef std::list<Row>          RowsResult;
+typedef std::vector<RowsResult> ParallelRowsResult;
 
 Rows rows;
 
@@ -190,8 +191,8 @@ void task2_hori(Row* rows, int32_t len) {
 }   // void task2_hori(Row* row, int32_t len)
 
 void task2_create_index(Rows& rows) {
-    std::unique_ptr<Indexes> index_a(new Indexes());
-    std::unique_ptr<Indexes> index_b(new Indexes());
+    std::unique_ptr<HashIndexes> index_a = std::make_unique<HashIndexes>();
+    std::unique_ptr<Indexes> index_b = std::make_unique<Indexes>();
 
     for (int i = 0; i < rows.len; ++i) {
         index_a->insert({ rows.data[i].a, i });
@@ -202,7 +203,40 @@ void task2_create_index(Rows& rows) {
     rows.index_b = std::move(index_b);
 }   // void task2_create_index(Rows& rows)
 
+bool task2_indexed_col_b_predicate(const Row& row) {
+    return row.b >= 10 && row.b < 50;
+}
 void task2_indexed(const Rows& rows) {
+    if (rows.index_a == nullptr || rows.index_b == nullptr) {
+        throw std::string("no index found");
+    }
+    auto range_equals_to_1000 = rows.index_a->equal_range(1000);
+    auto range_equals_to_2000 = rows.index_a->equal_range(2000);
+    auto range_equals_to_3000 = rows.index_a->equal_range(3000);
+
+
+    RowsResult results;
+    for (auto ir = range_equals_to_1000.first; ir != range_equals_to_1000.second; ++ir) {
+        if (task2_indexed_col_b_predicate(rows.data[ir->second])) {
+            results.push_back(rows.data[ir->second]);
+        }
+    }
+
+    for (auto ir = range_equals_to_2000.first; ir != range_equals_to_2000.second; ++ir) {
+        if (task2_indexed_col_b_predicate(rows.data[ir->second])) {
+            results.push_back(rows.data[ir->second]);
+        }
+    }
+
+    for (auto ir = range_equals_to_3000.first; ir != range_equals_to_3000.second; ++ir) {
+        if (task2_indexed_col_b_predicate(rows.data[ir->second])) {
+            results.push_back(rows.data[ir->second]);
+        }
+    }
+
+    for (const Row& row : results) {
+        print_one(row);
+    }
 }   // void task2_indexed(Rows* rows, int32_t len)
 
 void task3_by_hori(Row* rows, int32_t len) {
@@ -265,6 +299,13 @@ static void BM_task2_bin_search(::benchmark::State& state) {
     }
 }   // static void BM_task2_bin_search(::benchmark::State& state)
 
+static void BM_task2_indexed(::benchmark::State& state) {
+    task2_create_index(rows);
+    for (auto _ : state) {
+        task2_indexed(rows);
+    }
+}   // static void BM_task2_indexed(::benchmark::State& state)
+
 static void BM_task3_by_hori(::benchmark::State& state) {
     for (auto _ : state) {
         task3_by_hori(rows.data, rows.len);
@@ -274,5 +315,6 @@ static void BM_task3_by_hori(::benchmark::State& state) {
 BENCHMARK(BM_task1)->Range(8, 8 << 15)->Setup(BM_SetUp)->Teardown(BM_TearDown);
 BENCHMARK(BM_task2_hori)->Range(8, 8 << 15)->Setup(BM_task2_setup)->Teardown(BM_TearDown);
 BENCHMARK(BM_task2_bin_search)->Range(8, 8 << 15)->Setup(BM_task2_setup)->Teardown(BM_TearDown);
+BENCHMARK(BM_task2_indexed)->Range(8, 8 << 15)->Setup(BM_task2_setup)->Teardown(BM_TearDown);
 BENCHMARK(BM_task3_by_hori)->Range(8, 8 << 15)->Setup(BM_task2_setup)->Teardown(BM_TearDown);
 BENCHMARK_MAIN();
